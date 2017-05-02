@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from .context import sample
-
 import unittest
+
+from .context import ditDahReader
 
 
 class AdvancedTestSuite(unittest.TestCase):
     """Advanced test cases."""
 
-    def test_thoughts(self):
-        self.assertIsNone(sample.hmm())
+    def test_translate(self):
+        self.assertEqual(ditDahReader.morse.translate(
+            "a book"), ".- -...:---:---:-.-")
 
 
 if __name__ == '__main__':
