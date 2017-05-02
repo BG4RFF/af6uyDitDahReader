@@ -1,4 +1,8 @@
-
+"""
+  Morse code characters.  Would be good to find a way to test against the
+  ITU spec at
+  https://www.itu.int/dms_pubrec/itu-r/rec/m/R-REC-M.1677-1-200910-I!!PDF-E.pdf
+"""
 morse_dict = {
     # letters
     'a': '.-',
