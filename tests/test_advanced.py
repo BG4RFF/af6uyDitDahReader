@@ -9,8 +9,9 @@ class AdvancedTestSuite(unittest.TestCase):
     """Advanced test cases."""
 
     def test_translate(self):
-        self.assertEqual(ditDahReader.morse.translate(
-            "a book"), ".- -...:---:---:-.-")
+        m = ditDahReader.Morse()
+        self.assertEqual(m.translate("a book"), ".- -...:---:---:-.-")
+        self.assertEqual(m.translate("AF6UY"), ".-:..-.:-....:..-:-.--")
 
 
 if __name__ == '__main__':
