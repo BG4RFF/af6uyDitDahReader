@@ -32,6 +32,8 @@ class Morse:
         self.ditT.createTone(self.dit)
         self.dahT = Tone(_sample_rate)
         self.dahT.createTone(self.dah)
+        self.element_spaceZ = np.zeros(
+            int(self.element_space * self.ms * self.sample_rate + 0.5))
         self.char_spaceZ = np.zeros(
             int(self.char_space * self.ms * self.sample_rate + 0.5))
         self.word_spaceZ = np.zeros(
@@ -67,8 +69,10 @@ class Morse:
         for c in m:
             if c == '.':
                 w = np.append(w, self.ditT.tone)
+                w = np.append(w, self.element_spaceZ)
             if c == '-':
                 w = np.append(w, self.dahT.tone)
+                w = np.append(w, self.element_spaceZ)
             if c == ":":
                 w = np.append(w, self.char_spaceZ)
             if c == " ":
