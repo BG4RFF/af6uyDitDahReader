@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
   Morse code characters.  Would be good to find a way to test against the
   ITU spec at

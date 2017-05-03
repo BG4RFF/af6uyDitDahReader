@@ -1,5 +1,9 @@
 nose
 sphinx
 numpy
+matplotlib
 scipy
 sounddevice
+isort
+autopep8
+jupyter

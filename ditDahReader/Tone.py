@@ -18,7 +18,7 @@ class Tone:
     """
 
     def __init__(self, _sample_freq=8000.0, _tone_freq=600.0,
-                 _attack=1.0, _gain=10000.0):
+                 _attack=10.0, _gain=10000.0):
         self.fs = _sample_freq
         self.tf = _tone_freq
         self.attack = _attack
@@ -27,9 +27,10 @@ class Tone:
         self.raisedCosine()
 
     def raisedCosine(self):
-        self.rc = np.sin(math.pi / 4
-                         * np.arange(0, self.attack * ms, 1 / self.fs)
-                         / (self.attack * ms))
+        self.rc = (1 + np.cos(np.arange(-math.pi,
+                                        0,
+                                        math.pi / (self.attack * ms
+                                                   * self.fs)))) * .5
 
     def createTone(self, Nms):
         """create a tone of Nms (ms) length"""
@@ -39,10 +40,10 @@ class Tone:
                            * np.arange(0,
                                        Nms * ms, 1 / self.fs) * self.tf)
         w = np.ones(len(self.tone))
-        w[:self.rs.shape[0]] = rs.shape
-        w = w[:::-1]
-        w[:self.rs.shape[0]] = rs.shape
-        self.tone = np.multiply(rs.tone, w)
+        w[:self.rc.shape[0]] = self.rc
+        w = np.flip(w, 0)
+        w[:self.rc.shape[0]] = self.rc
+        self.tone = np.multiply(self.tone, w)
         return self.tone
 
     def play(self):
