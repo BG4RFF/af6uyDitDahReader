@@ -2,6 +2,7 @@ import math
 import re
 
 from .morse_dict import *
+from .Tone import *
 
 
 class Morse:
@@ -19,16 +20,27 @@ class Morse:
         self.char_space = self.dit_farns * 3.0
         self.word_space = self.dit_farns * 7.0
 
-    def __init__(self, _wpm=25, _farnsworth=-1.0, _sample_rate=8000.0):
+    def __init__(self, _wpm=25, _farnsworth=-1.0, _sample_rate=8000.0,
+                 _gain=10000.0):
         self.wpm = 25
         self.ms = math.pow(10, -3)
         self.ms_per_min = 60 / self.ms
         self.char_space_char = ":"
         self.setWPM(_wpm, _farnsworth)
         self.sample_rate = _sample_rate
+        self.ditT = Tone(_sample_rate)
+        self.ditT.createTone(self.dit)
+        self.dahT = Tone(_sample_rate)
+        self.dahT.createTone(self.dah)
+        self.char_spaceZ = np.zeros(
+            int(self.char_space * self.ms * self.sample_rate + 0.5))
+        self.word_spaceZ = np.zeros(
+            int(self.word_space * self.ms * self.sample_rate + 0.5))
+        self.gain = _gain
 
     def translate(self, text):
-        """translate from english text to string of dits (.) and dahs (-).
+        """
+          Translate from text to string of dits (.) and dahs (-).
           Character space is a ':'.  Word space is ' '.
 
           >>> m = Morse()
@@ -46,3 +58,21 @@ class Morse:
 
         rtn = re.sub(": ", " ", rtn)  # remove extra : at end of each word
         return re.sub(":$", "", rtn)  # remove last : if it is there
+
+    def play(self, text, _start=1.0):
+        """plays the text, but this is likely a poor implementation."""
+        m = self.translate(text)
+
+        w = np.zeros(int(_start * self.ms * self.sample_rate), dtype=float)
+        for c in m:
+            if c == '.':
+                w = np.append(w, self.ditT.tone)
+            if c == '-':
+                w = np.append(w, self.dahT.tone)
+            if c == ":":
+                w = np.append(w, self.char_spaceZ)
+            if c == " ":
+                w = np.append(w, self.word_spaceZ)
+
+        wav_wave = np.array(self.gain * w, dtype=np.int16)
+        sd.play(wav_wave, blocking=True)

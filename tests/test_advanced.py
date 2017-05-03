@@ -3,6 +3,8 @@
 import string
 import unittest
 
+import numpy as np
+
 from .context import ditDahReader
 
 
@@ -19,6 +21,8 @@ class AdvancedTestSuite(unittest.TestCase):
         self.assertEqual(m.translate("a book"), ".- -...:---:---:-.-")
         self.assertEqual(m.translate("AF6UY"), ".-:..-.:-....:..-:-.--")
         self.assertEqual(m.translate("àðþ"), ".--.-:..-..:.--..")
+        self.assertEqual(m.translate("W1AW de AF6UY"),
+                         ".--:.----:.-:.-- -..:. .-:..-.:-....:..-:-.--")
 
     def test_morse_dict_uniq(self):
         """
@@ -37,6 +41,13 @@ class AdvancedTestSuite(unittest.TestCase):
         l_len = len(l)
         # set creates unique list
         self.assertEqual(len(set(l)), l_len)
+
+    def test_tone(self):
+        """
+          Test the Tone class.
+        """
+        t = ditDahReader.Tone()
+        np.isclose(len(t.rc) / t.fs, t.attack * ditDahReader.ms)
 
 
 if __name__ == '__main__':
