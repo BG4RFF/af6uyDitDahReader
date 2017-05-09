@@ -62,7 +62,7 @@ class Morse:
         rtn = re.sub(": ", " ", rtn)  # remove extra : at end of each word
         return re.sub(":$", "", rtn)  # remove last : if it is there
 
-    def play(self, text, _start=1.0):
+    def play(self, text, _start=100.0):
         """plays the text, but this is likely a poor implementation."""
         m = self.translate(text)
 
