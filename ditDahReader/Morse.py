@@ -20,17 +20,17 @@ class Morse:
         self.char_space = self.dit_farns * 3.0
         self.word_space = self.dit_farns * 7.0
 
-    def __init__(self, _wpm=25, _farnsworth=-1.0, _sample_rate=8000.0,
-                 _gain=10000.0):
+    def __init__(self, _wpm=25, _farnsworth=-1.0, _hzTone=600.0,
+                 _sample_rate=8000.0, _gain=10000.0):
         self.wpm = 25
         self.ms = math.pow(10, -3)
         self.ms_per_min = 60 / self.ms
         self.char_space_char = ":"
         self.setWPM(_wpm, _farnsworth)
         self.sample_rate = _sample_rate
-        self.ditT = Tone(_sample_rate)
+        self.ditT = Tone(_sample_rate, _tone_freq=_hzTone)
         self.ditT.createTone(self.dit)
-        self.dahT = Tone(_sample_rate)
+        self.dahT = Tone(_sample_rate, _tone_freq=_hzTone)
         self.dahT.createTone(self.dah)
         self.element_spaceZ = np.zeros(
             int(self.element_space * self.ms * self.sample_rate + 0.5))
@@ -39,6 +39,7 @@ class Morse:
         self.word_spaceZ = np.zeros(
             int(self.word_space * self.ms * self.sample_rate + 0.5))
         self.gain = _gain
+        self.hzTone = _hzTone
 
     def translate(self, text):
         """
