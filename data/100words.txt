@@ -23,7 +23,6 @@ number
 group
 problem
 fact
-Verbs
 be
 have
 do
@@ -91,7 +90,6 @@ after
 beneath
 under
 above
-Others
 the
 and
 a

@@ -8,7 +8,6 @@ from .Morse import *
 
 class RandomTop100:
     def __init__(self, wfile="data/100words.txt"):
-        f = open(wfile)
         self.words = [word.strip() for line in open(wfile, 'r')
                       for word in line.split()]
 
