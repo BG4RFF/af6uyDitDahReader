@@ -49,4 +49,7 @@ class Tone:
     def play(self):
         """play the tone, needs to be created with createTone"""
         wav_wave = np.array(self.gain * self.tone, dtype=np.int16)
-        sd.play(wav_wave, blocking=True)
+        sd.play(wav_wave)
+        status = sd.wait()
+        if status:
+            print('Error: ' + str(status))

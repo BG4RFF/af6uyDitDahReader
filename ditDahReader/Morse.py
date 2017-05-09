@@ -80,4 +80,7 @@ class Morse:
                 w = np.append(w, self.word_spaceZ)
 
         wav_wave = np.array(self.gain * w, dtype=np.int16)
-        sd.play(wav_wave, blocking=True)
+        sd.play(wav_wave, self.sample_rate)
+        status = sd.wait()
+        if status:
+            print('Error: ' + str(status))
