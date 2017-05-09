@@ -1,6 +1,7 @@
 AF6UY Dit Dah Reader (IRC Reader to Audible Morse Code)
 =======================================================
 
-Python based IRC reader that plays the IRC in Morse Code.
+Goal: To make a Python based IRC reader that plays the IRC in Morse Code.
 
-(Just starting this project.)
+To Date: you can now see some examples of how to use the Morse class.
+Also look at the Usage.ipynb notebook to see some use cases.
