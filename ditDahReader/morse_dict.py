@@ -71,11 +71,15 @@ morse_dict = {
     # error
     '<hh>': '........',
     # starting signal
-    # ''<k>': '-.-',
+    '<k>': '-.-',
     # understood
     '<sn>': '...-.',
     # wait
-    # '<&>': '.-...',
+    '<&>': '.-...',
+    # New paragraph or thought
+    '<bt>': '-...-',
+    # End of contact
+    '<sk>': '...-.-'
 
     # non-english letters
     'à': '.--.-',
