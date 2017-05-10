@@ -79,7 +79,9 @@ morse_dict = {
     # New paragraph or thought
     '<bt>': '-...-',
     # End of contact
-    '<sk>': '...-.-'
+    '<sk>': '...-.-',
+    #
+    '<bk>': '-...-.-',
 
     # non-english letters
     'à': '.--.-',

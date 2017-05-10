@@ -52,12 +52,19 @@ class Morse:
           >>> m.translate("AF6UY")
           '._:..-.:-....:..-:-.--'
         """
+        prosign = re.compile(r'<.*>')
+
+        parts = re.split(r'(<[^>]*>)', text)  # not sure how to add ()'s'
         rtn = ""
-        for c in text.lower():
-            if c == " ":
-                rtn = rtn + " "
+        for part in parts:
+            if prosign.match(part):
+                rtn = rtn + morse_dict[part.lower()] + self.char_space_char
             else:
-                rtn = rtn + morse_dict[c] + self.char_space_char
+                for c in part.lower():
+                    if c == " ":
+                        rtn = rtn + " "
+                    else:
+                        rtn = rtn + morse_dict[c] + self.char_space_char
 
         rtn = re.sub(": ", " ", rtn)  # remove extra : at end of each word
         return re.sub(":$", "", rtn)  # remove last : if it is there

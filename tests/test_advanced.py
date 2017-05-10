@@ -23,6 +23,7 @@ class AdvancedTestSuite(unittest.TestCase):
         self.assertEqual(m.translate("àðþ"), ".--.-:..-..:.--..")
         self.assertEqual(m.translate("W1AW de AF6UY"),
                          ".--:.----:.-:.-- -..:. .-:..-.:-....:..-:-.--")
+        self.assertEqual(m.translate("<BK> <K>"), "-...-.- -.-")
 
     def test_morse_dict_uniq(self):
         """
