@@ -2,6 +2,7 @@ import math
 import re
 
 from .morse_dict import *
+from .Play import *
 from .Tone import *
 
 
@@ -40,6 +41,7 @@ class Morse:
             int(self.word_space * self.ms * self.sample_rate + 0.5))
         self.gain = _gain
         self.hzTone = _hzTone
+        self.p = Play(_sample_rate)
 
     def translate(self, text):
         """
@@ -86,8 +88,4 @@ class Morse:
             if c == " ":
                 w = np.append(w, self.word_spaceZ)
 
-        wav_wave = np.array(self.gain * w, dtype=np.int16)
-        sd.play(wav_wave, self.sample_rate)
-        status = sd.wait()
-        if status:
-            print('Error: ' + str(status))
+        self.p.play(w, self.gain)

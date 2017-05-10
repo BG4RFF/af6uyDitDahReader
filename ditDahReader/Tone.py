@@ -5,7 +5,8 @@
 import math
 
 import numpy as np
-import sounddevice as sd
+
+from .Play import *
 
 ms = math.pow(10, -3)
 
@@ -23,8 +24,8 @@ class Tone:
         self.tf = _tone_freq
         self.attack = _attack
         self.gain = _gain
-        sd.default.samplerate = self.fs
         self.raisedCosine()
+        self.p = Play(_sample_freq)
 
     def raisedCosine(self):
         self.rc = (1 + np.cos(np.arange(-math.pi,
@@ -48,8 +49,4 @@ class Tone:
 
     def play(self):
         """play the tone, needs to be created with createTone"""
-        wav_wave = np.array(self.gain * self.tone, dtype=np.int16)
-        sd.play(wav_wave)
-        status = sd.wait()
-        if status:
-            print('Error: ' + str(status))
+        p.play(self.tone, self.gain)
