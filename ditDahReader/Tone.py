@@ -19,7 +19,7 @@ class Tone:
     """
 
     def __init__(self, _sample_freq=8000.0, _tone_freq=600.0,
-                 _attack=10.0, _gain=10000.0):
+                 _attack=15.0, _gain=10000.0):
         self.fs = _sample_freq
         self.tf = _tone_freq
         self.attack = _attack
