@@ -82,8 +82,10 @@ morse_dict = {
     '<sk>': '...-.-',
     #
     '<bk>': '-...-.-',
-    #
+    # Invitation for named to contact
     '<kn>': '-.--.',
+    # Invitation for any station to contact
+    '<k>': '-.-',
 
     # non-english letters
     'à': '.--.-',
