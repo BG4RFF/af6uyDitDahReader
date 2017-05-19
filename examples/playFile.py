@@ -18,4 +18,4 @@ if __name__ == "__main__":
             time.sleep(0.5)
             m.play(line)
             time.sleep(0.5)
-            print(line)
+            print(line, end='')

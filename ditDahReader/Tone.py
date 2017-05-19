@@ -49,4 +49,4 @@ class Tone:
 
     def play(self):
         """play the tone, needs to be created with createTone"""
-        p.play(self.tone, self.gain)
+        self.p.play(self.tone, self.gain)

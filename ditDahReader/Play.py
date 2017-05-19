@@ -5,6 +5,7 @@ import sounddevice as sd
 class Play:
     def __init__(self, _fs=8000.0):
         self.fs = _fs
+        sd.default.reset()
         sd.default.samplerate = self.fs
 
     def play(self, wave, gain=10000):

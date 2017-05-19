@@ -28,20 +28,20 @@ class Morse:
         self.ms_per_min = 60 / self.ms
         self.char_space_char = ":"
         self.setWPM(_wpm, _farnsworth)
-        self.sample_rate = _sample_rate
+        self.fs = _sample_rate
         self.ditT = Tone(_sample_rate, _tone_freq=_hzTone)
         self.ditT.createTone(self.dit)
         self.dahT = Tone(_sample_rate, _tone_freq=_hzTone)
         self.dahT.createTone(self.dah)
         self.element_spaceZ = np.zeros(
-            int(self.element_space * self.ms * self.sample_rate + 0.5))
+            int(self.element_space * self.ms * self.fs + 0.5))
         self.char_spaceZ = np.zeros(
-            int(self.char_space * self.ms * self.sample_rate + 0.5))
+            int(self.char_space * self.ms * self.fs + 0.5))
         self.word_spaceZ = np.zeros(
-            int(self.word_space * self.ms * self.sample_rate + 0.5))
+            int(self.word_space * self.ms * self.fs + 0.5))
         self.gain = _gain
         self.hzTone = _hzTone
-        self.p = Play(_sample_rate)
+        self.p = Play(self.fs)
 
     def translate(self, text):
         """
@@ -71,11 +71,10 @@ class Morse:
         rtn = re.sub(": ", " ", rtn)  # remove extra : at end of each word
         return re.sub(":$", "", rtn)  # remove last : if it is there
 
-    def play(self, text, _start=100.0):
-        """plays the text, but this is likely a poor implementation."""
+    def buildPlayList(self, text, _start=100.0):
         m = self.translate(text)
 
-        w = np.zeros(int(_start * self.ms * self.sample_rate), dtype=float)
+        w = np.zeros(int(_start * self.ms * self.fs), dtype=float)
         for c in m:
             if c == '.':
                 w = np.append(w, self.ditT.tone)
@@ -87,5 +86,13 @@ class Morse:
                 w = np.append(w, self.char_spaceZ)
             if c == " ":
                 w = np.append(w, self.word_spaceZ)
+            if c == "\n":
+                w = np.append(w, self.word_spaceZ)
+        return w
+
+    def play(self, text, _start=100.0):
+        """plays the text, but this is likely a poor implementation."""
+
+        w = self.buildPlayList(text)
 
         self.p.play(w, self.gain)

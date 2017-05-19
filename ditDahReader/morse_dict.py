@@ -80,7 +80,7 @@ morse_dict = {
     '<bt>': '-...-',
     # End of contact
     '<sk>': '...-.-',
-    #
+    # Break
     '<bk>': '-...-.-',
     # Invitation for named to contact
     '<kn>': '-.--.',
