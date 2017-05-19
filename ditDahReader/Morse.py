@@ -75,19 +75,27 @@ class Morse:
         m = self.translate(text)
 
         w = np.zeros(int(_start * self.ms * self.fs), dtype=float)
+        preDitOrDah = False
         for c in m:
             if c == '.':
+                if preDitOrDah:
+                    w = np.append(w, self.element_spaceZ)
                 w = np.append(w, self.ditT.tone)
-                w = np.append(w, self.element_spaceZ)
+                preDitOrDah = True
             if c == '-':
+                if preDitOrDah:
+                    w = np.append(w, self.element_spaceZ)
                 w = np.append(w, self.dahT.tone)
-                w = np.append(w, self.element_spaceZ)
+                preDitOrDah = True
             if c == ":":
                 w = np.append(w, self.char_spaceZ)
+                preDitOrDah = False
             if c == " ":
                 w = np.append(w, self.word_spaceZ)
+                preDitOrDah = False
             if c == "\n":
                 w = np.append(w, self.word_spaceZ)
+                preDitOrDah = False
         return w
 
     def play(self, text, _start=100.0):
