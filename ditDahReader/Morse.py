@@ -96,6 +96,9 @@ class Morse:
             if c == "\n":
                 w = np.append(w, self.word_spaceZ)
                 preDitOrDah = False
+
+        w = np.append(w, np.zeros(
+            int(_start * self.ms * self.fs), dtype=float))
         return w
 
     def play(self, text, _start=100.0):
